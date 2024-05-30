@@ -2,12 +2,19 @@ import { Link } from "react-router-dom";
 import { Menu, Package2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useLocation } from "react-router-dom";
+import clsx from "clsx";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: Props) {
+  // Get the current location object using useLocation
+  const location = useLocation();
+  // Access the pathname property of the location object to get the current route
+  const currentRoute = location.pathname;
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -21,25 +28,43 @@ export function Layout({ children }: Props) {
           </Link>
           <Link
             to="/"
-            className="text-foreground transition-colors hover:text-foreground"
+            className={clsx(
+              "transition-colors hover:text-foreground",
+              currentRoute === "/" ? "text-foreground" : "text-muted-foreground"
+            )}
           >
             Dashboard
           </Link>
           <Link
             to="/counter"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className={clsx(
+              "transition-colors hover:text-foreground",
+              currentRoute === "/counter"
+                ? "text-foreground"
+                : "text-muted-foreground"
+            )}
           >
             Counter
           </Link>
           <Link
             to="/user-form"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className={clsx(
+              "transition-colors hover:text-foreground",
+              currentRoute === "/user-form"
+                ? "text-foreground"
+                : "text-muted-foreground"
+            )}
           >
             User Form
           </Link>
           <Link
             to="/rich-text-edior"
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            className={clsx(
+              "transition-colors hover:text-foreground",
+              currentRoute === "/rich-text-edior"
+                ? "text-foreground"
+                : "text-muted-foreground"
+            )}
           >
             Rich Text Editor
           </Link>
@@ -58,30 +83,53 @@ export function Layout({ children }: Props) {
           <SheetContent side="left">
             <nav className="grid gap-6 text-lg font-medium">
               <Link
-                to="#"
+                to="/"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
                 <span className="sr-only">Acme Inc</span>
               </Link>
-              <Link to="/" className="hover:text-foreground">
+              <Link
+                to="/"
+                className={clsx(
+                  "hover:text-foreground",
+                  currentRoute === "/"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
                 Dashboard
               </Link>
               <Link
                 to="/counter"
-                className="text-muted-foreground hover:text-foreground"
+                className={clsx(
+                  "hover:text-foreground",
+                  currentRoute === "/counter"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
               >
                 Counter
               </Link>
               <Link
                 to="/user-form"
-                className="text-muted-foreground hover:text-foreground"
+                className={clsx(
+                  "hover:text-foreground",
+                  currentRoute === "/user-form"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
               >
                 User Form
               </Link>
               <Link
                 to="/rich-text-edior"
-                className="text-muted-foreground hover:text-foreground"
+                className={clsx(
+                  "hover:text-foreground",
+                  currentRoute === "/rich-text-edior"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
               >
                 Rich Text Editor
               </Link>
