@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { v4 as uuidv4 } from "uuid";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -40,6 +42,28 @@ export function UserDataForm() {
     },
   });
 
+  const { formState, reset } = form;
+  const { isDirty } = formState;
+  const navigate = useNavigate();
+
+  /** function to handling unload event to show alert warning before user close the browser tab or reloads it */
+  const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    const message =
+      "Do you really want to close this tab? Your current view will not be saved.";
+    e.preventDefault();
+    e.returnValue = message;
+    return message;
+  };
+
+  useEffect(() => {
+    if (isDirty) {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    }
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [isDirty]);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     const prevUserData = localStorage.getItem("users")
       ? JSON.parse(localStorage.getItem("users") as string)
@@ -47,6 +71,8 @@ export function UserDataForm() {
     const usersData = [...prevUserData, { ...values, userId: uuidv4() }];
     localStorage.setItem("users", JSON.stringify(usersData));
     console.log(values, usersData);
+    reset();
+    navigate("/user-details");
   }
 
   return (

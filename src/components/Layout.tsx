@@ -58,6 +58,17 @@ export function Layout({ children }: Props) {
             User Form
           </Link>
           <Link
+            to="/user-details"
+            className={clsx(
+              "transition-colors hover:text-foreground",
+              currentRoute === "/user-details"
+                ? "text-foreground"
+                : "text-muted-foreground"
+            )}
+          >
+            User Details
+          </Link>
+          <Link
             to="/rich-text-edior"
             className={clsx(
               "transition-colors hover:text-foreground",
@@ -121,6 +132,17 @@ export function Layout({ children }: Props) {
                 )}
               >
                 User Form
+              </Link>
+              <Link
+                to="/user-details"
+                className={clsx(
+                  "hover:text-foreground",
+                  currentRoute === "/user-details"
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                User Deails
               </Link>
               <Link
                 to="/rich-text-edior"

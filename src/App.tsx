@@ -5,6 +5,7 @@ import { Layout } from "./components/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserDataForm } from "./components/UserDataForm";
 import RichTextEditor from "./components/RichTextEditor";
+import { UserDetails } from "./components/UserDetails";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <UserDataForm />
+      </Layout>
+    ),
+  },
+  {
+    path: "/user-details",
+    element: (
+      <Layout>
+        <UserDetails />
       </Layout>
     ),
   },
